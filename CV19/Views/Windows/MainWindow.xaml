@@ -15,12 +15,12 @@
             <MenuItem Header="Файл">
                 <MenuItem Header="Выход"/>
             </MenuItem>
-            <MenuItem Header="Помощ">
+            <MenuItem Header="Помощь">
                 <MenuItem Header="О программе"/>
             </MenuItem>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">
-            <StatusBarItem>
+            <StatusBarItem MinWidth="150" MaxWidth="350">
                 <TextBlock Text="1234"/>
             </StatusBarItem>
             <StatusBarItem>
