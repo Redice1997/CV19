@@ -13,6 +13,18 @@ namespace CV19.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
+        #region SelectedPageIndex : int - Номер выбранной вкладки
+        /// <summary>Номер выбранной вкладки</summary>
+        private int _SelectedPageIndex;
+
+        /// <summary>Номер выбранной вкладки</summary>
+        public int SelectedPageIndex
+        {
+            get => _SelectedPageIndex;
+            set => Set(ref _SelectedPageIndex, value);
+        }
+        #endregion
+
         #region TestDataPoints : IEnumerable<DataPoint> - Тестовый набор данных для визуализации графиков
         /// <summary>Тестовый набор данных для визуализации графиков</summary>
         private IEnumerable<DataPoint> _TestDataPoints;
@@ -20,8 +32,8 @@ namespace CV19.ViewModels
         /// <summary>Тестовый набор данных для визуализации графиков</summary>
         public IEnumerable<DataPoint> TestDataPoints
         {
-            get { return _TestDataPoints; }
-            set { Set(ref _TestDataPoints, value); }
+            get => _TestDataPoints; 
+            set => Set(ref _TestDataPoints, value); 
         }
         #endregion
 
@@ -58,7 +70,19 @@ namespace CV19.ViewModels
         {
             Application.Current.Shutdown();
         }
+
         #endregion
+        #region ChangeTabIndexCommand
+        public ICommand ChangeTabIndexCommand { get; }
+
+        private bool CanChangeTabIndexCommandExecute(object p) => _SelectedPageIndex >= 0;
+        private void OnChangeTabIndexCommandExecuted(object p)
+        {
+            if (p is null) return;
+            SelectedPageIndex += Convert.ToInt32(p);
+        }
+        #endregion
+
 
         #endregion
 
@@ -67,6 +91,7 @@ namespace CV19.ViewModels
             #region Команды
 
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+            ChangeTabIndexCommand = new LambdaCommand(OnChangeTabIndexCommandExecuted, CanChangeTabIndexCommandExecute);
 
             #endregion
 
